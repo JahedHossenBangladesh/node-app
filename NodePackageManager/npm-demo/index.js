@@ -1,0 +1,1 @@
+module.exports.Jahed = function(a,b) {a + b};
