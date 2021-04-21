@@ -51,7 +51,14 @@ console.log(result);
 //or 
 //and
   async function getCourses(){
+
+const pageNumber = 2;
+const pageSize = 10;
+
     const courses = await Course
+
+
+
     // .find({author:'Jahed',isPublished:true})
     // .find({price: 10 })
     // .find ({price : {$gte:10,$lt:20}})
@@ -60,17 +67,24 @@ console.log(result);
     // .or([{author:'Jahed'},{isPublished: true}])
     // .and ([{author:'Jahed',isPublished: true}])
 
+
 //Start with Jahed
-.find({author:/^Jahed/})
+// .find({author:/^Jahed/})
 
 //End with Hossen
-.find({author: /Jahed$/i})
+// .find({author: /Jahed$/i})
 
 //Contain anywhere Jahed
-  .find({author: /.*Jahed.*/i})
-    .limit(10)
+// .find({author: /.*Jahed.*/i})
+
+
+//pagination 
+ .find({author:'Jahed',isPublished: true})
+ .skip((pageNumber -1) * pageSize)
+    .limit(pageSize)
     .sort({name:1})
-    .select({name:1,tags:1})
+    // .select({name:1,tags:1})
+    .count();
     console.log(courses);
   }
  getCourses();
