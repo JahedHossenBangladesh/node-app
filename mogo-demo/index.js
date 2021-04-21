@@ -37,10 +37,21 @@ console.log(result);
   }
   
   // createCourse();
-
+//find by critical way 
+//eq
+//ne
+//gt 
+//lt 
+//lte 
+//gte 
+// in
+//nin
   async function getCourses(){
     const courses = await Course
-    .find({author:'Jahed',isPublished:true})
+    // .find({author:'Jahed',isPublished:true})
+    // .find({price: 10 })
+    // .find ({price : {$gte:10,$lt:20}})
+    .find({price:{$in:[10,20,30]}})
     .limit(10)
     .sort({name:1})
     .select({name:1,tags:1})
