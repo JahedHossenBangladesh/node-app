@@ -56,9 +56,18 @@ console.log(result);
     // .find({price: 10 })
     // .find ({price : {$gte:10,$lt:20}})
     // .find({price:{$in:[10,20,30]}})
-    .find()
-    .or([{author:'Jahed'},{isPublished: true}])
-    .and ([{author:'Jahed',isPublished: true}])
+    // .find()
+    // .or([{author:'Jahed'},{isPublished: true}])
+    // .and ([{author:'Jahed',isPublished: true}])
+
+//Start with Jahed
+.find({author:/^Jahed/})
+
+//End with Hossen
+.find({author: /Jahed$/i})
+
+//Contain anywhere Jahed
+  .find({author: /.*Jahed.*/i})
     .limit(10)
     .sort({name:1})
     .select({name:1,tags:1})
