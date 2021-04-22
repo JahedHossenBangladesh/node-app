@@ -87,4 +87,40 @@ const pageSize = 10;
     .count();
     console.log(courses);
   }
- getCourses();
+
+//  getCourses();
+
+async function updateCourse(id) {
+  const courseEdit = await Course.findById(id);
+  if (!courseEdit) return;
+
+  courseEdit.isPublished = true;
+  courseEdit.author = "Another Course";
+
+  const result = await courseEdit.save();
+  console.log(result);
+}
+
+// updateCourse("60805b31ce81b718d00740c1");
+
+async function deleteId(id){
+    // const corseDelete = await Course.deleteOne({_id:id });
+    // const result = await Course.deleteMany({_id:id});
+    const resultdelet = await Course.findByIdAndRemove(id);
+    
+console.log(resultdelet)
+
+};
+
+deleteId("60805b31ce81b718d00740c1");
+
+
+
+
+
+
+
+
+
+
+
