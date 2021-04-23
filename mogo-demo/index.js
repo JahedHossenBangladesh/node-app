@@ -8,7 +8,7 @@ useUnifiedTopology:true})
 
 
   const courseSchema = new mongoose.Schema({
-    name: String,
+    name: {type:String,required:true},
     author: String,
     tags:[String],
     date: {
@@ -16,6 +16,7 @@ useUnifiedTopology:true})
       default:Date.now
     },
     isPublished: Boolean,
+
   });
 
   //classes ,objects
@@ -26,17 +27,39 @@ useUnifiedTopology:true})
 
   async function createCourse(){
 const course = new Course({
-  name: "node.js Course",
+  // name: "node.js Course",
   author: "Rahed",
   tags: ["node", "backend"],
   isPublished: true,
 });
+try{
 const result = await course.save();
 console.log(result);
+}
+catch (err){
+  console.log(err.message);
+}
+
 
   }
   
-  // createCourse();
+  createCourse();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //find by critical way 
 //eq
 //ne
@@ -90,6 +113,13 @@ const pageSize = 10;
 
 //  getCourses();
 
+
+
+
+
+
+
+
 async function updateCourse(id) {
   const courseEdit = await Course.findById(id);
   if (!courseEdit) return;
@@ -103,6 +133,16 @@ async function updateCourse(id) {
 
 // updateCourse("60805b31ce81b718d00740c1");
 
+
+
+
+
+
+
+
+
+
+
 async function deleteId(id){
     // const corseDelete = await Course.deleteOne({_id:id });
     // const result = await Course.deleteMany({_id:id});
@@ -112,7 +152,7 @@ console.log(resultdelet)
 
 };
 
-deleteId("60805b31ce81b718d00740c1");
+// deleteId("60805b31ce81b718d00740c1");
 
 
 
