@@ -21,7 +21,15 @@ useUnifiedTopology:true})
 
     },
     author: String,
-    tags:[String],
+    tags:{
+      type:Array,
+      validate:{
+        validator: function(v){
+          return v && v.length >0;
+        },
+        message:'A course have at least 1 tag'
+      }
+    },
     date: {
       type:Date,
       default:Date.now
@@ -41,9 +49,9 @@ useUnifiedTopology:true})
   async function createCourse(){
 const course = new Course({
   name: "node.js Course",
-  category:'-',
+  category:'web',
   author: "Rahed",
-  tags: ["node", "backend"],
+  tags: [],
   isPublished: true,
   price :35
 });
