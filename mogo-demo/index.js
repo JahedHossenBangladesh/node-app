@@ -8,7 +8,18 @@ useUnifiedTopology:true})
 
 
   const courseSchema = new mongoose.Schema({
-    name: {type:String,required:true},
+    name: {type:String,
+      required:true,
+      minlength:5,
+      maxlength: 255
+    },
+    category:{
+       type:String,
+       required: true,
+       enum:['web','mobile','network']
+
+
+    },
     author: String,
     tags:[String],
     date: {
@@ -16,6 +27,8 @@ useUnifiedTopology:true})
       default:Date.now
     },
     isPublished: Boolean,
+    price:{type:Number,required:function(){
+      return this.isPublished;}}
 
   });
 
@@ -27,10 +40,12 @@ useUnifiedTopology:true})
 
   async function createCourse(){
 const course = new Course({
-  // name: "node.js Course",
+  name: "node.js Course",
+  category:'-',
   author: "Rahed",
   tags: ["node", "backend"],
   isPublished: true,
+  price :35
 });
 try{
 const result = await course.save();
