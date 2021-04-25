@@ -8,36 +8,37 @@ useUnifiedTopology:true})
 
 
   const courseSchema = new mongoose.Schema({
-    name: {type:String,
-      required:true,
-      minlength:5,
-      maxlength: 255
-    },
-    category:{
-       type:String,
-       required: true,
-       enum:['web','mobile','network']
-
-
+    name: { type: String, required: true, minlength: 5, maxlength: 255 },
+    category: {
+      type: String,
+      required: true,
+      enum: ["web", "mobile", "network"],
     },
     author: String,
-    tags:{
-      type:Array,
-      validate:{
-        validator: function(v){
-          return v && v.length >0;
+    tags: {
+      type: Array,
+      validate: {
+        isAsync: true,
+        validator: function (v,callback) {
+       setTimeout(()=>{
+         const result = v && v.length > 0;
+         callback(result)
+       },4000)
         },
-        message:'A course have at least 1 tag'
-      }
+        message: "A course have at least 1 tag",
+      },
     },
     date: {
-      type:Date,
-      default:Date.now
+      type: Date,
+      default: Date.now,
     },
     isPublished: Boolean,
-    price:{type:Number,required:function(){
-      return this.isPublished;}}
-
+    price: {
+      type: Number,
+      required: function () {
+        return this.isPublished;
+      },
+    },
   });
 
   //classes ,objects
@@ -49,7 +50,7 @@ useUnifiedTopology:true})
   async function createCourse(){
 const course = new Course({
   name: "node.js Course",
-  category:'web',
+  category:'-',
   author: "Rahed",
   tags: [],
   isPublished: true,
@@ -59,8 +60,9 @@ try{
 const result = await course.save();
 console.log(result);
 }
-catch (err){
-  console.log(err.message);
+catch (ex){
+  for(field in ex.errors)
+  console.log(ex.errors[field]);
 }
 
 
