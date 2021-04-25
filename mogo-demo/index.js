@@ -13,6 +13,9 @@ useUnifiedTopology:true})
       type: String,
       required: true,
       enum: ["web", "mobile", "network"],
+      lowercase:true,
+
+      trim : true
     },
     author: String,
     tags: {
@@ -38,6 +41,10 @@ useUnifiedTopology:true})
       required: function () {
         return this.isPublished;
       },
+      min:10,
+      max:200,
+      get: v => Math.round(v),
+      set: v => Math.round(v),
     },
   });
 
@@ -50,11 +57,11 @@ useUnifiedTopology:true})
   async function createCourse(){
 const course = new Course({
   name: "node.js Course",
-  category:'-',
+  category:'web',
   author: "Rahed",
-  tags: [],
+  tags: ['frontend'],
   isPublished: true,
-  price :35
+  price :12.4
 });
 try{
 const result = await course.save();
@@ -62,7 +69,7 @@ console.log(result);
 }
 catch (ex){
   for(field in ex.errors)
-  console.log(ex.errors[field]);
+  console.log(ex.errors[field].message);
 }
 
 
